@@ -19,6 +19,14 @@ spec:
           image: nginx:latest
           ports: 
           - containerPort: 80
+          volumeMounts:
+            - mountPath: /usr/share/nginx/html/index.html
+              name: gitops-nginx-config
+              subPath: index.html
+      volumes:
+        - name: gitops-nginx-config
+          configMap:
+            name: gitops-nginx-config
 ---
 apiVersion: v1
 kind: Service
@@ -33,3 +41,38 @@ spec:
   ports:
     - port: 80
       targetPort: 80
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gitops-nginx-config
+  labels:
+    app: gitops-nginx
+data:
+  index.html: |
+    <!DOCTYPE html>
+    <html lang="pl">
+    <head>
+        <title>GitOps Nginx - Strona powitalna</title>
+        <style>
+            body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 50px; text-align: center; }
+            h1 { color: #2c3e50; }
+            p { color: #7f8c8d; }
+            .version { 
+                margin-top: 20px; 
+                padding: 10px; 
+                background-color: #ecf0f1; 
+                border-radius: 5px; 
+                display: inline-block;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Gratulacje! GitOps działa poprawnie!</h1>
+        <p>Ta strona jest serwowana przez Nginx zarządzany przez ArgoCD.</p>
+        <div class="version">
+            Aktualna wersja Nginx (z Git): **1.24.0**
+        </div>
+        <p>Wprowadzamy teraz ConfigMap!</p>
+    </body>
+    </html>
