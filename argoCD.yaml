@@ -13,6 +13,8 @@ spec:
     metadata:
       labels:
         app: gitops-nginx
+      annotations:
+        configmap-checksum: "v2"
     spec:
       containers:
         - name: nginx
