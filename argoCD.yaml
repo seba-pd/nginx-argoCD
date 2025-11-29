@@ -53,9 +53,10 @@ data:
     <!DOCTYPE html>
     <html lang="pl">
     <head>
-        <title>GitOps Nginx - Strona powitalna</title>
+        <title>GitOps Nginx - Strona powitalna V2</title>
         <style>
-            body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 50px; text-align: center; }
+            /* ZMIEŃ KOLOR TŁA na ciemniejszy */
+            body { font-family: Arial, sans-serif; background-color: #e6e6fa; margin: 50px; text-align: center; } 
             h1 { color: #2c3e50; }
             p { color: #7f8c8d; }
             .version { 
@@ -66,13 +67,19 @@ data:
                 display: inline-block;
             }
         </style>
+        <script>
+            // Dodajemy skrypt, który wyświetla czas wczytania ConfigMap
+            window.onload = function() {
+                document.getElementById('timestamp').innerText = 'Wdrożono o: ' + new Date().toLocaleTimeString();
+            }
+        </script>
     </head>
     <body>
-        <h1>Gratulacje! GitOps działa poprawnie!</h1>
-        <p>Ta strona jest serwowana przez Nginx zarządzany przez ArgoCD.</p>
+        <h1>KONFIGURACJA ZMIENIONA PRZEZ GIT!</h1> 
+        <p>Ta treść została zaktualizowana automatycznie przez ArgoCD z ConfigMap.</p>
         <div class="version">
             Aktualna wersja Nginx (z Git): **1.24.0**
         </div>
-        <p>Wprowadzamy teraz ConfigMap!</p>
+        <p id="timestamp"></p> 
     </body>
     </html>
