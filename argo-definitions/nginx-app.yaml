@@ -4,8 +4,9 @@ metadata:
   name: gitops-nginx-app
   namespace: argocd
 spec:
+  project: default
   source: 
-    repoUrl: 'https://github.com/seba-pd/platform-repository.git'
+    repoURL: 'https://github.com/seba-pd/platform-repository.git'
     targetRevision: HEAD
     path: applications/nginx
   destination:
@@ -15,5 +16,5 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
+    syncOptions:
+       - CreateNamespace=true
